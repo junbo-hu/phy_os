@@ -23,7 +23,7 @@ putloop:
 	int 0x10
 	jmp putloop
 fin:
-	hat
+	hlt
 	jmp fin
 msg:
 	db 0x0a,0x0a
