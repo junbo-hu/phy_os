@@ -38,13 +38,14 @@
 	```bash
 	make all
 	```
-    3. 运行和调试
+    3. 运行
 	在phyoslab目录下执行：
 	```bash
 	./run
 	```
 	如果出现Bochs的窗口，里面显示linux的引导过程，最后停止在“[/usr/root/]#”，表示运行成功，如下图所示。
 ![图1 用Bochs启动Linux 0.11以后的样子](https://github.com/junbo-hu/phy_os/blob/master/1-exper01-env/images/bochs_run_linux0.11_first.PNG)    
+    4. 调试
 	汇编级调试需执行命令：
 	```bash
 	./dgb-asm
@@ -57,7 +58,7 @@
 	```bash
 	./rungdb
 	```
-    4. Ubuntu和Linux 0.11之间的文件交换
+    5. Ubuntu和Linux 0.11之间的文件交换
 	首先在Ubuntu下mount hdc：
 	```bash
 	sudo ./mount-hdc
