@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.7	//
 ABRT_ERR	include/linux/hdreg.h	47;"	d
 ACC_MODE	fs/namei.c	21;"	d	file:
 ALRMMASK	kernel/chr_drv/tty_io.c	17;"	d	file:
@@ -17,12 +17,12 @@ AR	mm/Makefile	/^AR	=ar$/;"	m
 ARCHIVES	Makefile	/^ARCHIVES=kernel\/kernel.o mm\/mm.o fs\/fs.o$/;"	m
 AS	Makefile	/^AS	=as$/;"	m
 AS	fs/Makefile	/^AS	=as$/;"	m
-AS	kernel/Makefile	/^AS	=as --32$/;"	m
+AS	kernel/Makefile	/^AS	=as$/;"	m
 AS	kernel/blk_drv/Makefile	/^AS	=as$/;"	m
-AS	kernel/chr_drv/Makefile	/^AS	=as --32$/;"	m
+AS	kernel/chr_drv/Makefile	/^AS	=as$/;"	m
 AS	kernel/math/Makefile	/^AS	=as$/;"	m
 AS	lib/Makefile	/^AS	=as$/;"	m
-AS	mm/Makefile	/^AS	=as --32$/;"	m
+AS	mm/Makefile	/^AS	=as$/;"	m
 AS86	Makefile	/^AS86	=as86 -0 -a$/;"	m
 B0	include/termios.h	133;"	d
 B110	include/termios.h	136;"	d
@@ -61,14 +61,14 @@ CC	kernel/chr_drv/Makefile	/^CC	=gcc-3.4 -march=i386$/;"	m
 CC	kernel/math/Makefile	/^CC	=gcc-3.4 -march=i386$/;"	m
 CC	lib/Makefile	/^CC	=gcc-3.4 -march=i386$/;"	m
 CC	mm/Makefile	/^CC	=gcc-3.4 -march=i386$/;"	m
-CFLAGS	Makefile	/^CFLAGS	=-m32 -g -Wall -O2 -fomit-frame-pointer $/;"	m
-CFLAGS	fs/Makefile	/^CFLAGS	=-m32 -g -Wall -fstrength-reduce -fomit-frame-pointer \\$/;"	m
-CFLAGS	kernel/Makefile	/^CFLAGS	=-m32 -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
-CFLAGS	kernel/blk_drv/Makefile	/^CFLAGS	=-m32 -g -Wall -O -fstrength-reduce -fomit-frame-pointer  \\$/;"	m
-CFLAGS	kernel/chr_drv/Makefile	/^CFLAGS	=-m32 -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
-CFLAGS	kernel/math/Makefile	/^CFLAGS	=-m32 -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
-CFLAGS	lib/Makefile	/^CFLAGS	=-m32 -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
-CFLAGS	mm/Makefile	/^CFLAGS	=-m32 -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
+CFLAGS	Makefile	/^CFLAGS	= -g -Wall -O2 -fomit-frame-pointer $/;"	m
+CFLAGS	fs/Makefile	/^CFLAGS	= -g -Wall -fstrength-reduce -fomit-frame-pointer \\$/;"	m
+CFLAGS	kernel/Makefile	/^CFLAGS	= -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
+CFLAGS	kernel/blk_drv/Makefile	/^CFLAGS	= -g -Wall -O -fstrength-reduce -fomit-frame-pointer  \\$/;"	m
+CFLAGS	kernel/chr_drv/Makefile	/^CFLAGS	= -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
+CFLAGS	kernel/math/Makefile	/^CFLAGS	= -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
+CFLAGS	lib/Makefile	/^CFLAGS	= -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
+CFLAGS	mm/Makefile	/^CFLAGS	= -g -Wall -O -fstrength-reduce -fomit-frame-pointer \\$/;"	m
 CHARS	include/linux/tty.h	30;"	d
 CIBAUD	include/termios.h	162;"	d
 CLOCAL	include/termios.h	161;"	d
@@ -83,7 +83,7 @@ CPP	Makefile	/^CPP	=cpp -nostdinc -Iinclude$/;"	m
 CPP	fs/Makefile	/^CPP	=gcc-3.4 -E -nostdinc -I..\/include$/;"	m
 CPP	kernel/Makefile	/^CPP	=gcc-3.4 -E -nostdinc -I..\/include$/;"	m
 CPP	kernel/blk_drv/Makefile	/^CPP	=gcc-3.4 -E -nostdinc -I..\/..\/include$/;"	m
-CPP	kernel/chr_drv/Makefile	/^CPP	=gcc-3.4 -m32 -g -E -nostdinc -I..\/..\/include$/;"	m
+CPP	kernel/chr_drv/Makefile	/^CPP	=gcc-3.4 -E -nostdinc -I..\/..\/include$/;"	m
 CPP	kernel/math/Makefile	/^CPP	=gcc-3.4 -E -nostdinc -I..\/..\/include$/;"	m
 CPP	lib/Makefile	/^CPP	=gcc-3.4 -E -nostdinc -I..\/include$/;"	m
 CPP	mm/Makefile	/^CPP	=gcc-3.4 -E -nostdinc -I..\/include$/;"	m
@@ -311,12 +311,11 @@ LD	lib/Makefile	/^LD	=ld$/;"	m
 LD	mm/Makefile	/^LD	=ld$/;"	m
 LD86	Makefile	/^LD86	=ld86 -0$/;"	m
 LDFLAGS	Makefile	/^LDFLAGS	=-m elf_i386 -Ttext 0 -e startup_32$/;"	m
-LDFLAGS	kernel/Makefile	/^LDFLAGS	=-m elf_i386 -x$/;"	m
-LDFLAGS	kernel/blk_drv/Makefile	/^LDFLAGS	=-m elf_i386 -x$/;"	m
-LDFLAGS	kernel/chr_drv/Makefile	/^LDFLAGS	=-m elf_i386 -x$/;"	m
-LDFLAGS	kernel/math/Makefile	/^LDFLAGS	=-m elf_i386 -x$/;"	m
-LDFLAGS	lib/Makefile	/^LDFLAGS	=-m elf_i386 -x$/;"	m
-LDFLAGS	mm/Makefile	/^LDFLAGS =-m elf_i386$/;"	m
+LDFLAGS	kernel/Makefile	/^LDFLAGS	= -x$/;"	m
+LDFLAGS	kernel/blk_drv/Makefile	/^LDFLAGS	= -x$/;"	m
+LDFLAGS	kernel/chr_drv/Makefile	/^LDFLAGS	= -x$/;"	m
+LDFLAGS	kernel/math/Makefile	/^LDFLAGS	= -x$/;"	m
+LDFLAGS	lib/Makefile	/^LDFLAGS	= -x$/;"	m
 LDT_CODE	include/linux/head.h	17;"	d
 LDT_DATA	include/linux/head.h	18;"	d
 LDT_NUL	include/linux/head.h	16;"	d

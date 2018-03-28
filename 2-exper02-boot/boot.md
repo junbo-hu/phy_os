@@ -27,7 +27,7 @@
     xor    bh,bh
     int    0x10
 
-    ! 显示字符串“LZJos is running...”
+    ! 显示字符串“phyos is running...”
     mov    cx,#25            ! 要显示的字符串长度
     mov    bx,#0x0007        ! page 0, attribute 7 (normal)
     mov    bp,#msg1

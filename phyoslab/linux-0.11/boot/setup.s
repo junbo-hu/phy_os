@@ -30,31 +30,6 @@ begbss:
 entry start
 start:
 
-! repeat set stack, although it is done in bootsect.s
-	mov ax, #INITSEG
-	mov ss, ax
-	mov sp, #0xFF00
-
-! now we are in setup ,print the message.
-
-	mov ax, #SETUPSEG
-	mov es, ax
-	call read_cursor
-	mov cx, #14
-	mov bx, #0x0007		! page 0, attribute 10(bright green)
-	mov bp, #msg
-	mov ax, #0x1301		! write string, move cursor
-	int 0x10
-
-	call read_cursor
-	mov cx, #5
-	mov bx, #0x000a		! page 0, attribute 7(normal, white color)
-	mov bp, #msg+14
-	mov ax, #0x1301
-	int 0x10
-	call print_nl
-	call print_nl
-
 ! ok, the read went well so we get current cursor position and save it for
 ! posterity.
 
@@ -64,11 +39,8 @@ start:
 	xor	bh,bh
 	int	0x10		! save it in known place, con_init fetches
 	mov	[0],dx		! it from 0x90000.
-
 ! Get memory size (extended mem, kB)
-	
-	mov ax, #INITSEG ! this is done in bootsect already, but...
-	mov ds, ax
+
 	mov	ah,#0x88
 	int	0x15
 	mov	[2],ax
@@ -130,103 +102,6 @@ no_disk1:
 	rep
 	stosb
 is_disk1:
-
-! now, we have read some system parameters, print thees parameters.
-
-	mov ax, #INITSEG
-	mov ds, ax
-	mov ax, #SETUPSEG
-	mov es, ax
-
-! print cursor position
-
-	call read_cursor
-	mov cx, #17
-	mov bx, #0x000a		! page 0, attribute 10(normal, bright gren color)
-	mov bp, #cursor
-	mov ax, #0x1301
-	int 0x10
-
-	mov bp, #0x0000
-	call print_hex
-	call print_nl
-
-! print memory size
-	call read_cursor
-	mov cx, #13
-	mov bx, #0x000a		! page 0, attribue 10(normal, bright green color)
-	mov bp, #memory
-	mov ax, #0x1301
-	int 0x10
-
-	mov ax, [2]
-	add ax, #1024
-	mov memsize, ax
-	mov bp, #memsize
-	call print_hex
-
-	call read_cursor
-	mov cx, #2
-	mov bx, #0x0007
-	mov bp, #memory+13
-	mov ax, #0x1301
-	int 0x10
-	call print_nl
-
-! print hd0 cylinders
-	call read_cursor
-	mov cx, #15
-	mov bx, #0x000a		! page 0, attribute 10(normal, bright green color)
-	mov bp, #cylinder
-	mov ax, #0x1301
-	int 0x10
-
-	call read_cursor
-	mov bp, #0x0080
-	call print_hex
-	call print_nl
-
-! print hd0 heads
-	call read_cursor
-	mov cx, #11
-	mov bx, #0x000a		! page 0, attribute 10(normal, bright green color)
-	mov bp, #head
-	mov ax, #0x1301
-	int 0x10
-
-	mov bp, #0x0082
-	call print_hex
-	call print_nl
-
-! print hd0 sectors
-	call read_cursor
-	mov cx, #13
-	mov bx, #0x000a		! page 0, attribute 10(normal, bright green color)
-	mov bp, #sector
-	mov ax, #0x1301
-	int 0x10
-
-	mov bp, #0x008E
-	call print_hex
-	call print_nl
-	call print_nl
-
-! ok, the read went well so we get current cursor position and save it for
-! posterity.
-
-	mov	ax,#INITSEG	! this is done in bootsect already, but...
-	mov	ds,ax
-	mov	ah,#0x03	! read cursor pos
-	xor	bh,bh
-	int	0x10		! save it in known place, con_init fetches
-	mov	[0],dx		! it from 0x90000.
-
-! Get video-card data:
-
-	mov	ah,#0x0f
-	int	0x10
-	mov	[4],bx		! bh = display page
-	mov	[6],ax		! al = video mode, ah = window width
 
 ! now we want to move to protected mode ...
 
@@ -325,60 +200,6 @@ empty_8042:
 	jnz	empty_8042	! yes - loop
 	ret
 
-!以16进制方式打印栈顶的16位数
-print_hex:
-	push ax
-	push bx
-	push cx
-	push dx
-	mov ax, #0x0e30		! 0
-	int 0x10
-	mov ax, #0x0e78		! x
-	int 0x10
-	mov cx, #4
-	mov dx, (bp)
-print_digit:
-	rol dx, #4
-	mov ax, #0x0e0f
-	mov bl, #0x0f	! bright green color
-	and al, dl
-	add al,#0x30
-	cmp al, #0x3a
-	jl outp			! if less,是一个不大于9的数字
-	add al, #0x07	! 是a~f，要加7
-outp:
-	int 0x10
-	loop print_digit
-	pop dx
-	pop cx
-	pop bx
-	pop ax
-	ret
-
-print_nl:
-	push ax
-	push bx
-	mov ax, #0x0e0d		! CR
-	int 0x10
-	mov ax, #0x0e0A		! LR
-	int 0x10
-	pop bx
-	pop ax
-	ret
-
-read_cursor:
-	push ax
-	push bx
-	push cx
-	mov ah, #0x03		! read cursor pos
-	xor bh, bh
-	int 0x10
-	pop cx
-	pop bx
-	pop ax
-	ret
-
-
 gdt:
 	.word	0,0,0,0		! dummy
 
@@ -399,27 +220,6 @@ idt_48:
 gdt_48:
 	.word	0x800		! gdt limit=2048, 256 GDT entries
 	.word	512+gdt,0x9	! gdt base = 0X9xxxx
-
-msg:
-	.ascii "Now we are in SETUP"
-
-cursor:
-	.ascii "Cursor Position: "
-	.ascii "KB"
-
-memory:
-	.ascii "Memory Size: KB"
-
-cylinder:
-	.ascii "HD0 cylinders: "
-
-head:
-	.ascii "HD0 heads: "
-
-sector:
-	.ascii "HD0 sectors: "
-memsize:
-	.word 0x0000
 	
 .text
 endtext:
