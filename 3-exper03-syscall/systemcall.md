@@ -50,7 +50,8 @@ junbo
  + 把函数参数存入ebx、ecx、edx；
  + 触发0x80号中断（int 0x80）。
 
-3. 先看看_syscall3 宏的实现代码：
+3. 先看看_syscall3 宏的实现代码：    
+
           #define _syscall3(type,name,atype,a,btype,b,ctype,c) \
           type name(atype a,btype b,ctype c) \
           { \
@@ -64,7 +65,8 @@ junbo
           return -1; \
           }
 
-4. **在kernel/who.c中实现sys_iam()和sys_whoami()**
+4. **在kernel/who.c中实现sys_iam()和sys_whoami()**    
+
         int sys_iam(const char *name)
         {
             unsigned int namelen = 0;
@@ -116,14 +118,17 @@ junbo
 
 5. 注册系统调用
   + 在include/unistd.h中定义系统调用编号    
+
                 #define __NR_iam        72
                 #define __NR_whoami     73
 
-  + 在kernel/system_call.s中：
+  + 在kernel/system_call.s中：    
+
                 nr_system_calls = 74 #设置系统调用的总数，原来是72个
 
   + 在include/linux/sys.h中将系统调用编号和处理函数关联    
-  在sys_call_table中添加sys_whoami和sys_iam两项，并在上面声明：
+  在sys_call_table中添加sys_whoami和sys_iam两项，并在上面声明：    
+  
                 extern int sys_whoami();
                 extern int sys_iam();
 
