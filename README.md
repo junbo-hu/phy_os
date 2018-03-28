@@ -7,4 +7,4 @@
  本实验需要对操作系统实模式和保护模式有一定了解，详情请参阅《Linux内核完全注释》
 
 ## 3. [系统调用](https://github.com/junbo-hu/phy_os/blob/master/3-exper03-syscall/systemcall.md)
-开始试验之前请先了解操作系统的中断处理和系统调用过程，可以参考我的[学习笔记](https://github.com/junbo-hu/phy_os/tree/master/3-exper03-systemcall/chapter05_note.md)
+开始试验之前请先了解操作系统的中断处理和系统调用过程，可以参考我的[学习笔记](https://github.com/junbo-hu/phy_os/tree/master/3-exper03-syscall/chapter05_note.md)

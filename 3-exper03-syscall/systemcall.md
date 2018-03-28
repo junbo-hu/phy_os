@@ -6,7 +6,7 @@
 + 为后续实验做准备
 
 ## 实验说明
-+ 本实验需要读者在了解Linux中断处理机制和系统调用过程的基础上完成。可以参考本人的[读书笔记](https://github.com/junbo-hu/phy_os/tree/master/3-exper03-systemcall/chapter05_note.md)
++ 本实验需要读者在了解Linux中断处理机制和系统调用过程的基础上完成。可以参考本人的[读书笔记](./chapter05_note.md)
 
 ## 实验内容
 此次试验基本内容：在Linux0.11上添加两个系统调用，并编写两个简单的应用程序测试它们。
@@ -133,6 +133,7 @@ junbo
                 panic.o printk.o vsprintf.o sys.o exit.o \
                 signal.o mktime.o who.o
 另一处添加依赖：    
+
           \### Dependencies:
           who.s who.o: who.c ../include/linux/kernel.h ../include/unistd.h
           exit.s exit.o: exit.c ../include/errno.h ../include/signal.h \
@@ -144,7 +145,8 @@ junbo
 7. 编译    
 若在编译时出现错误，可以调用printk()函数进行调试
 
-8. 编写应用层测试程序
+8. 编写应用层测试程序    
+
         //iam.c
         _syscall1(int, iam, const char*, name)
 
