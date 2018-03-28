@@ -52,45 +52,45 @@ junbo
 
 3. 先看看_syscall3 宏的实现代码：    
 
-          #define _syscall3(type,name,atype,a,btype,b,ctype,c) \
-          type name(atype a,btype b,ctype c) \
-          { \
-          long __res; \
-          __asm__ volatile ("int $0x80" \
-              : "=a" (__res) \
-              : "0" (__NR_##name),"b" ((long)(a)),"c" ((long)(b)),"d" ((long)(c))); \
-          if (__res>=0) \
-              return (type) __res; \
-          errno=-__res; \
-          return -1; \
-          }
+        #define _syscall3(type,name,atype,a,btype,b,ctype,c) \
+        type name(atype a,btype b,ctype c) \
+        { \
+        long __res; \
+        __asm__ volatile ("int $0x80" \
+            : "=a" (__res) \
+            : "0" (__NR_##name),"b" ((long)(a)),"c" ((long)(b)),"d" ((long)(c))); \
+        if (__res>=0) \
+            return (type) __res; \
+        errno=-__res; \
+        return -1; \
+        }
 
 4. **在kernel/who.c中实现sys_iam()和sys_whoami()**    
 
         int sys_iam(const char *name)
         {
-            unsigned int namelen = 0;
-            int i = 0;
-            int res = -1;
-            //printk("Now we in kernel's sys_iam\n");
-            while (get_fs_byte(name+namelen) != '\0')
-                    namelen++;
-            if (namelen <= NAMELEN) {
-                    //printk("All %d user space's chars to be copied to the kernel\n", namelen);
-                    //printk("Copying from user to kernel...\n");
-                    for(i = 0; i < namelen; i++) {
-                            username[i] = get_fs_byte(name+i);
-                    }
-                    //printk("Done!\n");
-                    username[i] = '\0';
-                    //printk("%s\n", username);
-                    res = namelen;
-            } else {
-                    printk("Error, the user space's name's length is %d longer than 23!\n", namelen);
-                    res = -(EINVAL);
-            }
-            return res;
-        }
+          unsigned int namelen = 0;
+          int i = 0;
+          int res = -1;
+          //printk("Now we in kernel's sys_iam\n");
+          while (get_fs_byte(name+namelen) != '\0')
+                  namelen++;
+          if (namelen <= NAMELEN) {
+                  //printk("All %d user space's chars to be copied to the kernel\n", namelen);
+                  //printk("Copying from user to kernel...\n");
+                  for(i = 0; i < namelen; i++) {
+                          username[i] = get_fs_byte(name+i);
+                  }
+                  //printk("Done!\n");
+                  username[i] = '\0';
+                  //printk("%s\n", username);
+                  res = namelen;
+          } else {
+                  printk("Error, the user space's name's length is %d longer than 23!\n", namelen);
+                  res = -(EINVAL);
+          }
+          return res;
+      }
 
         int sys_whoami(char *name, unsigned int size)
         {
@@ -128,7 +128,7 @@ junbo
 
   + 在include/linux/sys.h中将系统调用编号和处理函数关联    
   在sys_call_table中添加sys_whoami和sys_iam两项，并在上面声明：    
-  
+
                 extern int sys_whoami();
                 extern int sys_iam();
 
