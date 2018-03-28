@@ -193,4 +193,4 @@ junbo
         gcc whoami.c -o whoami -Wall
 
 10. 运行结果    
-![systemcall](https://github.com/junbo-hu/phy_os/tree/master/3-exper03-systemcall/images/syscall.PNG)
+![systemcall](https://github.com/junbo-hu/phy_os/tree/master/3-exper03-syscall/images/syscall.PNG)
