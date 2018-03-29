@@ -20,3 +20,6 @@
   1、[实模式](./4-protect-mode/real_mode.md)    
   2、[系统寄存器和系统指令](./4-protect-mode/protect_mode_part1.md)    
   3、[保护模式内存管理](./4-protect-mode/protect_mode_part2.md)
+
+## 参考资料    
+&emsp;&emsp;git传大文件遇到点问题，直接给百度云链接吧[books](https://pan.baidu.com/s/1_THf1NsajOksuS2xg8btRQ),加我QQ 1107624590 要密码
